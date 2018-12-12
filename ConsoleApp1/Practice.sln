@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.27703.2035
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoPractice", "ConsoleApp1\AlgoPractice.csproj", "{B3E153B0-23A6-44C8-80DE-3C0AD3C278CB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{0E9C550F-6177-4DE7-B1EE-19B6391C70CB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{B3E153B0-23A6-44C8-80DE-3C0AD3C278CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B3E153B0-23A6-44C8-80DE-3C0AD3C278CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B3E153B0-23A6-44C8-80DE-3C0AD3C278CB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0E9C550F-6177-4DE7-B1EE-19B6391C70CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E9C550F-6177-4DE7-B1EE-19B6391C70CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E9C550F-6177-4DE7-B1EE-19B6391C70CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E9C550F-6177-4DE7-B1EE-19B6391C70CB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
