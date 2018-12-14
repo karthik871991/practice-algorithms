@@ -45,8 +45,44 @@ namespace Tests
                 count1--;
                 head1 = head1.Previous;
             }
+        }
 
+        [TestMethod]
+        public void LruTest2()
+        {
+            var cache = new LRUCache(2);
+            cache.Put(1, 1);
+            cache.Put(2, 2);
+            cache.Get(1);
+            cache.Put(3, 3);
+            cache.Get(2);
+            cache.Put(4, 4);
+            cache.Get(1);
+            cache.Get(3);
+            cache.Get(4);
+        }
 
+        [TestMethod]
+        public void LruTest3()
+        {
+            var cache = new LRUCache(1);
+            cache.Put(2, 1);
+            cache.Get(2);
+            cache.Put(3, 2);
+            cache.Get(2);
+            cache.Get(3);
+        }
+
+        [TestMethod]
+        public void LruTest4()
+        {
+            var cache = new LRUCache(2);
+            cache.Put(2, 1);
+            cache.Put(2, 2);
+            cache.Get(2);
+            cache.Put(1, 1);
+            cache.Put(4, 1);
+            cache.Get(2);
         }
     }
 }

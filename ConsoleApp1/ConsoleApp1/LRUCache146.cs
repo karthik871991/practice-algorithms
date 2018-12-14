@@ -7,6 +7,7 @@ namespace AlgoPractice
         public Node Head = null;
         public Node Tail = null;
         public int Capacity = 0;
+        public int Count = 0;
         public Dictionary<int, Node> KeyValuePairs;
 
         public LRUCache(int capacity)
@@ -26,39 +27,53 @@ namespace AlgoPractice
             if (KeyValuePairs.ContainsKey(key))
             {
                 var node = KeyValuePairs[key];
-                Remove(key);
-                AddToFront(node.Key, node.Value);
+                Remove(node);
+                AddToFront(node);
+                KeyValuePairs.Remove(key);
+                KeyValuePairs.Add(key, node);
                 return node.Value;
             }
-            return 0;
+            return -1;
         }
 
         public void Put(int key, int value)
         {
             if (KeyValuePairs.ContainsKey(key))
             {
-                Remove(key);
-                AddToFront(key, value);
+                var currentNode = KeyValuePairs[key];
+                currentNode.Value = value;
+                Remove(currentNode);
+                AddToFront(currentNode);
+                KeyValuePairs.Remove(key);
+                KeyValuePairs.Add(key, Head.Previous);
             }
             else
             {
-                AddToFront(key, value);
-                KeyValuePairs.Add(key, Head.Previous);                
+                var node = new Node { Key = key, Value = value };
+                if (Count < Capacity)
+                {
+                    AddToFront(node);
+                    KeyValuePairs.Add(key, Head.Previous);
+                    Count++;
+                }
+                else
+                {
+                    KeyValuePairs.Remove(Tail.Next.Key);
+                    Remove(Tail.Next);
+                    AddToFront(node);
+                    KeyValuePairs.Add(key, Head.Previous);
+                }
             }
         }
 
-        private void Remove(int key)
+        private void Remove(Node node)
         {
-            var currentNode = KeyValuePairs[key];
-            KeyValuePairs.Remove(key);
-
-            currentNode.Previous.Next = currentNode.Next;
-            currentNode.Next.Previous = currentNode.Previous;
+            node.Previous.Next = node.Next;
+            node.Next.Previous = node.Previous;
         }
 
-        private void AddToFront(int key, int value)
+        private void AddToFront(Node node)
         {
-            var node = new Node { Key = key, Value = value };
             var previous = Head.Previous;
             node.Previous = previous;
             node.Next = Head;
