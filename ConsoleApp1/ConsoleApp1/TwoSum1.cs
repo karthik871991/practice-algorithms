@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace AlgoPractice
 {
@@ -7,7 +9,6 @@ namespace AlgoPractice
         public int[] TwoSum(int[] nums, int target)
         {
             var dict = new Dictionary<int, int>();
-
             for (int i = 0; i < nums.Length; i++)
             {
                 if (dict.ContainsKey(target - nums[i]))
