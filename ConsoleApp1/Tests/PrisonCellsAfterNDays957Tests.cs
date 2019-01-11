@@ -19,7 +19,7 @@ namespace Tests
 
             var result = cells.PrisonAfterNDays(intArray, n);
 
-            CollectionAssert.AreEquivalent(new int[] { 0, 1, 1, 0, 0, 1, 1, 0 }, result);
+            CollectionAssert.AreEqual(new int[] { 0, 1, 1, 0, 0, 1, 1, 0 }, result);
         }
 
 
@@ -33,7 +33,63 @@ namespace Tests
 
             var result = cells.PrisonAfterNDays(intArray, n);
 
-            CollectionAssert.AreEquivalent(new int[] { 0, 0, 1, 1, 1, 1, 1, 0 }, result);
+            CollectionAssert.AreEqual(new int[] { 0, 0, 1, 1, 1, 1, 1, 0 }, result);
+        }
+
+        [TestMethod]
+        public void PrisonCellsTests3()
+        {
+            var cells = new PrisonCellsAfterNDays();
+
+            var intArray = new int[] { 0, 0, 1, 0, 0, 1, 0, 0 };
+
+            var n = 44640906;
+
+            var result = cells.PrisonAfterNDays(intArray, n);
+
+            CollectionAssert.AreEqual(new int[] { 0, 0, 1, 0, 0, 1, 0, 0 }, result);
+        }
+
+        [TestMethod]
+        public void PrisonCellsTests4()
+        {
+            var cells = new PrisonCellsAfterNDays();
+
+            var intArray = new int[] { 0, 0, 1, 1, 1, 1, 0, 0 };
+
+            var n = 8;
+
+            var result = cells.PrisonAfterNDays(intArray, n);
+
+            CollectionAssert.AreEqual(new int[] { 0, 0, 0, 1, 1, 0, 0, 0 }, result);
+        }
+
+        [TestMethod]
+        public void PrisonCellsTests5()
+        {
+            var cells = new PrisonCellsAfterNDays();
+
+            var intArray = new int[] { 0, 1, 0, 1, 1, 0, 0, 1 };
+
+            var n = 7;
+
+            var result = cells.PrisonAfterNDays(intArray, n);
+
+            CollectionAssert.AreEqual(new int[] { 0, 0, 1, 1, 0, 0, 0, 0 }, result);
+        }
+
+        [TestMethod]
+        public void PrisonCellsTests7()
+        {
+            var cells = new PrisonCellsAfterNDays();
+
+            var intArray = new int[] { 0, 0, 0, 1, 1, 0, 1, 0 };
+
+            var n = 574;
+
+            var result = cells.PrisonAfterNDays(intArray, n);
+
+            CollectionAssert.AreEqual(new int[] { 0, 0, 0, 1, 1, 0, 1, 0 }, result);
         }
     }
 }
