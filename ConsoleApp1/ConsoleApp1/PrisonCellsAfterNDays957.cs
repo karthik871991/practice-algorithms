@@ -7,16 +7,36 @@ namespace AlgoPractice
     public class PrisonCellsAfterNDays
     {
         public int[] PrisonAfterNDays(int[] cells, int N)
-       {
+        {
+            var tree = new SortedDictionary<int, int>();
+            foreach (var t in tree)
+            {
+
+            }
             var map = new Dictionary<string, int[]>();
 
             var cellsCopy = new int[cells.Length];
 
-            cells.CopyTo(cellsCopy, 0);
+            cells.CopyTo(cellsCopy,0);
+
 
             for (int i = 0; i < N; i++)
             {
+                if(i > 12)
+                {
 
+                }
+
+                if (map.ContainsKey(GetString(cells)))
+                {
+                    var number = (N % map.Count);
+                    cells = cellsCopy;
+                    N = number;
+                    i = 0;
+                    map.Clear();
+                }
+
+                map.Add(GetString(cells), cells);
 
                 int p = cells[0];
 
@@ -34,21 +54,12 @@ namespace AlgoPractice
                     }
                 }
 
-
                 cells[0] = 0;
                 cells[cells.Length - 1] = 0;
 
-                if (map.ContainsKey(GetString(cells)))
-                {
-                    var number = (N % (map.Count));
-                    if (number == 0) return cellsCopy;
-                    cells = cellsCopy;
-                    N = (N-i) % i;
-                    i = -1;
-                    map.Clear();
-                }
+                var str = GetString(cells);
 
-                map.Add(GetString(cells), cells);
+                
             }
 
             return cells;
@@ -58,7 +69,7 @@ namespace AlgoPractice
         {
             var sb = new StringBuilder();
 
-            foreach (var n in cells)
+            foreach(var n in cells)
             {
                 sb.Append(n);
             }
