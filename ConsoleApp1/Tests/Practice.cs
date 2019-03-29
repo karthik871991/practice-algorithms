@@ -26,15 +26,42 @@ namespace Tests
             var sort = list.OrderBy(x => x.foo).ThenBy(y => y.moo);
 
             var map = new Dictionary<int, int>();
-            
+
             var sortSet = new SortedSet<Sample>(new DuplicateKeyComparer());
 
             var sortedDict = new SortedDictionary<Sample, Sample>(new DuplicateKeyComparer());
+
+            var sd = new SortedDictionary<Example, Example>(new ComparerExample());
+            sd.Add(new Example { MyProperty = 1 }, new Example());
+            sd.Add(new Example { MyProperty = 1 }, new Example());
+
+            var dict = new Dictionary<string, string>();
+
+            var hash = new HashSet<string>();
 
             foreach (var l in list)
             {
                 sortSet.Add(l);
                 sortedDict.Add(l, l);
+            }
+        }
+
+        public class Example
+        {
+            public int MyProperty { get; set; }
+        }
+
+        public class ComparerExample : IComparer<Example>
+        {
+            public int Compare(Example x, Example y)
+            {
+                int result = x.MyProperty.CompareTo(y.MyProperty);
+                if(result == 0)
+                {
+                    return x.GetHashCode().CompareTo(y.GetHashCode());
+                }
+
+                return result;
             }
         }
 
@@ -53,7 +80,7 @@ namespace Tests
                     }
                     return x.moo.CompareTo(y.moo);   // Handle equality as beeing greater
                 }
-                    
+
                 else
                     return result;
             }
