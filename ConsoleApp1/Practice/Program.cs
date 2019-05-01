@@ -20,14 +20,17 @@ namespace Practice
 
         public static void Main(string[] args)
         {
+            var buyList = new BuyPriceBookList();
+            var sellList = new SellPriceBookList();
+
             while (true)
             {
                 var str = Console.ReadLine();
-                RunOrderMatchingEngine(str);
+                RunOrderMatchingEngine(str, buyList, sellList);
             }
         }
 
-        public static void RunOrderMatchingEngine(string str)
+        public static void RunOrderMatchingEngine(string str, BuyPriceBookList buyList, SellPriceBookList sellList)
         {
             var strArray = str.Split(' ');
 
@@ -37,9 +40,9 @@ namespace Practice
                     {
                         var orderId = strArray[4];
                         var book = PriceBook.CreatePriceBook(strArray[1], int.Parse(strArray[2]), int.Parse(strArray[3]), strArray[4]);
-                        _priceBook.Add(orderId, book);
+                        //buyList.Add(orderId, book);
 
-
+                        AddBuySellTransaction(buyList, sellList, book, "BUY");
 
                         HandleTrade();
 
@@ -49,22 +52,56 @@ namespace Practice
                     {
                         var orderId = strArray[4];
                         var book = PriceBook.CreatePriceBook(strArray[1], int.Parse(strArray[2]), int.Parse(strArray[3]), strArray[4]);
-                        _priceBook.Add(orderId, book);
+                        //sellList.Add(orderId, book);
 
+                        AddBuySellTransaction(buyList, sellList, book, "SELL");
                         HandleTrade();
 
                         break;
                     }
                 case "CANCEL":
                     {
+                        var orderId = strArray[1];
+                        if (buyList.ContainsKey(orderId))
+                            buyList.Remove(orderId);
+
+                        if (sellList.ContainsKey(orderId))
+                            sellList.Remove(orderId);
+
                         break;
                     }
                 case "MODIFY":
                     {
+                        var orderId = strArray[1];
+                        var buyOrSell = strArray[2];
+                        var newPrice = int.Parse(strArray[3]);
+                        var newQuantity = int.Parse(strArray[4]);
+
+                        PriceBook book = null;
+
+                        if (buyList.ContainsKey(orderId))
+                        {
+                            book = buyList.Get(orderId);
+                            buyList.Remove(orderId);
+                        }
+
+                        if (sellList.ContainsKey(orderId))
+                        {
+                            book = sellList.Get(orderId);
+                            sellList.Remove(orderId);
+                        }
+
+                        book.CurrentTime = DateTime.Now;
+                        book.Price = int.Parse(strArray[3]);
+                        book.Quantity = int.Parse(strArray[4]);
+
+                        AddBuySellTransaction(buyList, sellList, book, strArray[2]);
+                        HandleTrade();
                         break;
                     }
                 case "PRINT":
                     {
+                        Print(buyList, sellList);
                         break;
                     }
                 default:
@@ -73,14 +110,23 @@ namespace Practice
             Console.WriteLine(str);
         }
 
+        public static void AddBuySellTransaction(BuyPriceBookList buyList, SellPriceBookList sellList, PriceBook book, string priceBookType)
+        {
+            if (priceBookType == "BUY")
+                buyList.Add(book.OrderId, book);
+
+            if (priceBookType == "SELL")
+                sellList.Add(book.OrderId, book);
+        }
+
         public static void HandleTrade()
         {
 
         }
 
-        public static void CheckForTrade()
+        public static void Print(BuyPriceBookList buyList, SellPriceBookList sellList)
         {
-
+            
         }
 
         public class PriceBook
@@ -141,6 +187,14 @@ namespace Practice
                 }
             }
 
+            public PriceBook Get(string key)
+            {
+                if (ContainsKey(key))
+                    return _buyPriceBook[key];
+
+                return null;
+            }
+
             public bool ContainsKey(string key)
             {
                 return _buyPriceBook.ContainsKey(key);
@@ -169,6 +223,14 @@ namespace Practice
                 }
 
                 return null;
+            }
+
+            public void Dump()
+            {
+                foreach (var key in _sortedBuyPriceBook)
+                {
+                    Console.WriteLine(_buyPriceBook[key.OrderId].Price);
+                }
             }
 
             public class PriceBookComparer : IComparer<PriceBook>
@@ -234,6 +296,14 @@ namespace Practice
                 return _sellPriceBook.ContainsKey(key);
             }
 
+            public PriceBook Get(string key)
+            {
+                if (ContainsKey(key))
+                    return _sellPriceBook[key];
+
+                return null;
+            }
+
             public PriceBook Peek()
             {
                 if (_sellPriceBook.Count > 0)
@@ -257,6 +327,11 @@ namespace Practice
                 }
 
                 return null;
+            }
+
+            public void Dump()
+            {
+
             }
 
             public class PriceBookComparer : IComparer<PriceBook>
