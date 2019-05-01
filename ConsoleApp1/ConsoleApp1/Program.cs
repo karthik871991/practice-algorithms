@@ -8,15 +8,88 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
 
             //retrieveMostFrequentlyUsedWords(null, null);
 
             //GetStrings("awaglknagawunagwkwagl", 4);
             //GetStrings("abcd", 3);
 
-            
+            int[] nums = new int[10];
+            Array.Fill(nums, -1);
 
+
+            Console.ReadKey();
+        }
+
+        public bool ValidTree(int n, int[][] edges)
+        {
+            if (edges.Length == 0) return true;
+            var set = new HashSet<int>();
+            set.Add(edges[0][0]);
+            set.Add(edges[0][1]);
+            for (int i = 1; i < edges.Length; i++)
+            {
+                foreach (var item in set)
+                {
+                    Console.Write(item);
+                }
+                Console.WriteLine("-------------1");
+                var a = edges[i][0];
+                var b = edges[i][1];
+
+                if (set.Contains(a) && set.Contains(b)) return false;
+
+                if (set.Contains(a) || set.Contains(b))
+                {
+                    set.Add(a);
+                    set.Add(b);
+                }
+
+                if (!set.Contains(a) && !set.Contains(b)) return false;
+
+                foreach (var item in set)
+                {
+                    Console.Write(item);
+                }
+                Console.WriteLine("-----------------2");
+            }
+
+            return true;
+        }
+
+        public bool CanVisitAllRooms(IList<IList<int>> rooms)
+        {
+            var set = Visit(rooms);
+
+            return set.Count == rooms.Count;
+        }
+
+        private HashSet<int> Visit(IList<IList<int>> rooms)
+        {
+            var q = new Queue<int>();
+            q.Enqueue(0);
+
+            var set = new HashSet<int>();
+            set.Add(0);
+
+            while (q.Count != 0)
+            {
+                var index = q.Dequeue();
+                for (int i = 0; i < rooms[index].Count; i++)
+                {
+                    if (!set.Contains(index))
+                    {
+                        Console.WriteLine(rooms[index][0]);
+                        set.Add(index);
+                        q.Enqueue(rooms[index][i]);
+                    }
+                }
+
+                Console.WriteLine(index);
+
+            }
+
+            return set;
         }
 
 
