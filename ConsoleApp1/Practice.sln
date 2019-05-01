@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27703.2035
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28803.202
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoPractice", "ConsoleApp1\AlgoPractice.csproj", "{B3E153B0-23A6-44C8-80DE-3C0AD3C278CB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlgoPractice", "ConsoleApp1\AlgoPractice.csproj", "{B3E153B0-23A6-44C8-80DE-3C0AD3C278CB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{0E9C550F-6177-4DE7-B1EE-19B6391C70CB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests", "Tests\Tests.csproj", "{0E9C550F-6177-4DE7-B1EE-19B6391C70CB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Practice", "Practice\Practice.csproj", "{26E7674F-4DB3-4DAD-9610-56F6ED507082}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{0E9C550F-6177-4DE7-B1EE-19B6391C70CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0E9C550F-6177-4DE7-B1EE-19B6391C70CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0E9C550F-6177-4DE7-B1EE-19B6391C70CB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{26E7674F-4DB3-4DAD-9610-56F6ED507082}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{26E7674F-4DB3-4DAD-9610-56F6ED507082}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{26E7674F-4DB3-4DAD-9610-56F6ED507082}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{26E7674F-4DB3-4DAD-9610-56F6ED507082}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

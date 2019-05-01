@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -14,8 +15,6 @@ namespace ConsoleApp1
 
             //GetStrings("awaglknagawunagwkwagl", 4);
             //GetStrings("abcd", 3);
-
-            
 
         }
 
