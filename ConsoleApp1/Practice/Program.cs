@@ -4,6 +4,74 @@ using System.Linq;
 
 namespace Practice
 {
+    // Sample Inputs
+    //    SELL GFD 1000 10 ORDER1
+
+    //SELL GFD 3000 20 ORDER2
+
+    //SELL GFD 2000 20 ORDER3
+
+    //SELL GFD 3000 20 ORDER4
+    //SELL GFD 1000 20 ORDER5
+
+    //PRINT
+
+    //BUY GFD 1000 10 ORDER1
+
+    //SELL GFD 9000 10 ORDER2
+    //BUY IOC 9000 15 ORDER3
+    //CANCEL ORDER1
+
+    //SELL GFD 900 10 ORDER2
+    //BUY GFD 1000 10 ORDER1
+
+
+
+    //BUY GFD 1000 10 ORDER1
+
+    //BUY GFD 1000 10 ORDER2
+    //SELL GFD 900 20 ORDER3
+
+
+
+
+    //BUY GFD 950 10 ORDER1
+
+    //BUY GFD 1000 15 ORDER2
+    //SELL GFD 900 20 ORDER3
+
+
+
+    //BUY GFD 1000 10 ORDER1
+
+    //BUY GFD 1000 10 ORDER2
+    //MODIFY ORDER1 BUY 1000 20
+    //SELL GFD 900 20 ORDER3
+    //-------------------------------------
+    //BUY GFD 1000 10 ORDER1
+
+    //PRINT
+
+    //BUY GFD 1000 10 ORDER1
+
+    //BUY GFD 1000 20 ORDER2
+    //PRINT
+
+    //BUY GFD 1000 10 ORDER1
+
+    //BUY GFD 1001 20 ORDER2
+    //PRINT
+
+    //BUY GFD 1000 10 ORDER1
+
+    //SELL GFD 900 20 ORDER2
+    //PRINT
+
+    //BUY GFD 1000 10 ORDER1
+
+    //BUY GFD 1010 10 ORDER2
+    //SELL GFD 1000 15 ORDER3
+    //PRINT
 
     class Solution
     {
@@ -130,7 +198,7 @@ namespace Practice
             if (buyBookPeek == null || sellBookPeek == null)
                 return;
 
-            if (buyBookPeek.Price > sellBookPeek.Price)
+            if (buyBookPeek.Price >= sellBookPeek.Price)
             {
                 var buy = buyList.GetFirstBuyBook();
                 var sell = sellList.GetFirstBuyBook();
@@ -336,7 +404,7 @@ namespace Practice
                         list.AddLast(new Node { Key = _priceBook[key.OrderId].Price, Value = _priceBook[key.OrderId].Quantity });
                     else
                     {
-                        if(lastValue.Key == key.Price)
+                        if (lastValue.Key == key.Price)
                         {
                             lastValue.Value += key.Quantity;
                         }
