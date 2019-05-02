@@ -5,13 +5,13 @@ using System.Linq;
 namespace Practice
 {
 
-    public class Solution
+    class Solution
     {
         public Solution()
         {
         }
 
-        public static void Main(string[] args)
+        static void Main(string[] args)
         {
             var buyList = new BuyPriceBookList();
             var sellList = new SellPriceBookList();
@@ -202,16 +202,16 @@ namespace Practice
 
                 if (priceDiff == 0)
                 {
-                    int quantityDiff = x.Quantity.CompareTo(y.Quantity);
-
-                    if (quantityDiff == 0)
-                        return x.CurrentTime.CompareTo(y.CurrentTime);
-                    else
-                        return quantityDiff;
+                    return x.CurrentTime.CompareTo(y.CurrentTime);
                 }
                 else
                     return priceDiff;
             }
+        }
+        public class Node
+        {
+            public int Key { get; set; }
+            public int Value { get; set; }
         }
         public class PriceBookList
         {
@@ -316,11 +316,41 @@ namespace Practice
 
             }
 
+            public class Node
+            {
+                public int Key { get; set; }
+                public int Value { get; set; }
+            }
+
             public override void Dump()
             {
+                Console.WriteLine("BUY:");
+
+                var list = new LinkedList<Node>();
+
                 foreach (var key in _sortedPriceBook)
                 {
-                    Console.WriteLine($"{_priceBook[key.OrderId].Price} {_priceBook[key.OrderId].Quantity}");
+                    var lastValue = list.LastOrDefault();
+
+                    if (lastValue == null)
+                        list.AddLast(new Node { Key = _priceBook[key.OrderId].Price, Value = _priceBook[key.OrderId].Quantity });
+                    else
+                    {
+                        if(lastValue.Key == key.Price)
+                        {
+                            lastValue.Value += key.Quantity;
+                        }
+                        else
+                        {
+                            list.AddLast(new Node { Key = _priceBook[key.OrderId].Price, Value = _priceBook[key.OrderId].Quantity });
+                        }
+                    }
+                    //Console.WriteLine($"{_priceBook[key.OrderId].Price} {_priceBook[key.OrderId].Quantity}");
+                }
+
+                foreach (var node in list)
+                {
+                    Console.WriteLine($"{node.Key} {node.Value}");
                 }
             }
         }
@@ -333,12 +363,7 @@ namespace Practice
 
                 if (priceDiff == 0)
                 {
-                    int quantityDiff = y.Quantity.CompareTo(x.Quantity);
-
-                    if (quantityDiff == 0)
-                        return x.CurrentTime.CompareTo(y.CurrentTime);
-                    else
-                        return quantityDiff;
+                    return x.CurrentTime.CompareTo(y.CurrentTime);
                 }
                 else
                     return priceDiff;
@@ -354,9 +379,32 @@ namespace Practice
 
             public override void Dump()
             {
+                Console.WriteLine("SELL:");
+
+                var list = new LinkedList<Node>();
+
                 foreach (var key in _sortedPriceBook.Reverse())
                 {
-                    Console.WriteLine($"{_priceBook[key.OrderId].Price} {_priceBook[key.OrderId].Quantity}");
+                    var lastValue = list.LastOrDefault();
+
+                    if (lastValue == null)
+                        list.AddLast(new Node { Key = _priceBook[key.OrderId].Price, Value = _priceBook[key.OrderId].Quantity });
+                    else
+                    {
+                        if (lastValue.Key == key.Price)
+                        {
+                            lastValue.Value += key.Quantity;
+                        }
+                        else
+                        {
+                            list.AddLast(new Node { Key = _priceBook[key.OrderId].Price, Value = _priceBook[key.OrderId].Quantity });
+                        }
+                    }
+                }
+
+                foreach (var node in list)
+                {
+                    Console.WriteLine($"{node.Key} {node.Value}");
                 }
             }
         }
