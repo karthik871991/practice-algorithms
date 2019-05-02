@@ -7,15 +7,8 @@ namespace Practice
 
     public class Solution
     {
-        //private static SortedDictionary<string, BuyPriceBook> _buyPriceBook;
-        //private static SortedDictionary<string, SellPriceBook> _sellPriceBook;
-        //private static Dictionary<string, PriceBook> _priceBook;
-
         public Solution()
         {
-            //_buyPriceBook = new SortedDictionary<string, BuyPriceBook>();
-            //_sellPriceBook = new SortedDictionary<string, SellPriceBook>();
-            //_priceBook = new Dictionary<string, PriceBook>();
         }
 
         public static void Main(string[] args)
@@ -44,8 +37,11 @@ namespace Practice
 
                         AddBuySellTransaction(buyList, sellList, book, "BUY");
 
-                        HandleTrade();
-
+                        HandleGFDTrade(buyList, sellList);
+                        if (book.OrderType == OrderType.IOC)
+                        {
+                            buyList.Remove(book.OrderId);
+                        }
                         break;
                     }
                 case "SELL":
@@ -55,8 +51,11 @@ namespace Practice
                         //sellList.Add(orderId, book);
 
                         AddBuySellTransaction(buyList, sellList, book, "SELL");
-                        HandleTrade();
-
+                        HandleGFDTrade(buyList, sellList);
+                        if (book.OrderType == OrderType.IOC)
+                        {
+                            sellList.Remove(book.OrderId);
+                        }
                         break;
                     }
                 case "CANCEL":
@@ -95,8 +94,10 @@ namespace Practice
                         book.Price = int.Parse(strArray[3]);
                         book.Quantity = int.Parse(strArray[4]);
 
-                        AddBuySellTransaction(buyList, sellList, book, strArray[2]);
-                        HandleTrade();
+                        var newBook = PriceBook.CreatePriceBook("GFD", newPrice, newQuantity, orderId);
+
+                        AddBuySellTransaction(buyList, sellList, newBook, strArray[2]);
+                        HandleGFDTrade(buyList, sellList);
                         break;
                     }
                 case "PRINT":
@@ -107,11 +108,13 @@ namespace Practice
                 default:
                     break;
             }
-            Console.WriteLine(str);
         }
 
         public static void AddBuySellTransaction(BuyPriceBookList buyList, SellPriceBookList sellList, PriceBook book, string priceBookType)
         {
+            if (book.Price <= 0 || book.Quantity <= 0 || string.IsNullOrWhiteSpace(book.OrderId))
+                return;
+
             if (priceBookType == "BUY")
                 buyList.Add(book.OrderId, book);
 
@@ -119,14 +122,56 @@ namespace Practice
                 sellList.Add(book.OrderId, book);
         }
 
-        public static void HandleTrade()
+        public static void HandleGFDTrade(BuyPriceBookList buyList, SellPriceBookList sellList)
         {
+            var buyBookPeek = buyList.Peek();
+            var sellBookPeek = sellList.Peek();
 
+            if (buyBookPeek == null || sellBookPeek == null)
+                return;
+
+            if (buyBookPeek.Price > sellBookPeek.Price)
+            {
+                var buy = buyList.GetFirstBuyBook();
+                var sell = sellList.GetFirstBuyBook();
+
+                var quantityTraded = Math.Min(buy.Quantity, sell.Quantity);
+
+                if (buyBookPeek.CurrentTime < sellBookPeek.CurrentTime)
+                {
+                    Console.WriteLine($"TRADE {buy.OrderId} {buy.Price} {quantityTraded} " +
+                        $"{sell.OrderId} {sell.Price} {quantityTraded}");
+                }
+                else
+                {
+                    Console.WriteLine($"TRADE {sell.OrderId} {sell.Price} {quantityTraded} " +
+                        $"{buy.OrderId} {buy.Price} {quantityTraded}");
+                }
+
+                if (buy.Quantity - quantityTraded > 0)
+                {
+                    buy.Quantity = buy.Quantity - quantityTraded;
+                    buyList.Add(buy.OrderId, buy);
+                }
+
+                if (sell.Quantity - quantityTraded > 0)
+                {
+                    sell.Quantity = sell.Quantity - quantityTraded;
+                    sellList.Add(sell.OrderId, sell);
+                }
+
+                HandleGFDTrade(buyList, sellList);
+            }
+            else
+            {
+                return;
+            }
         }
 
         public static void Print(BuyPriceBookList buyList, SellPriceBookList sellList)
         {
-
+            sellList.Dump();
+            buyList.Dump();
         }
 
         public class PriceBook
@@ -266,110 +311,18 @@ namespace Practice
 
         public class BuyPriceBookList : PriceBookList
         {
-            public BuyPriceBookList() : base(new PriceBookComparer())
+            public BuyPriceBookList() : base(new PriceBookReverseComparer())
             {
 
             }
-            //private Dictionary<string, PriceBook> _buyPriceBook;
-            //private SortedSet<PriceBook> _sortedBuyPriceBook;
-
-            //public BuyPriceBookList()
-            //{
-            //    _buyPriceBook = new Dictionary<string, PriceBook>();
-            //    _sortedBuyPriceBook = new SortedSet<PriceBook>(new PriceBookComparer());
-            //}
-            //public void Add(string key, PriceBook book)
-            //{
-            //    if (!_buyPriceBook.ContainsKey(key))
-            //    {
-            //        _buyPriceBook.Add(key, book);
-            //        _sortedBuyPriceBook.Add(book);
-            //    }
-            //    else
-            //    {
-            //        _buyPriceBook.Remove(key);
-            //        _sortedBuyPriceBook.Remove(book);
-
-            //        _buyPriceBook.Add(key, book);
-            //        _sortedBuyPriceBook.Add(book);
-            //    }
-            //}
-
-            //public void Remove(string key)
-            //{
-            //    if (_buyPriceBook.ContainsKey(key))
-            //    {
-            //        var book = _buyPriceBook[key];
-            //        _buyPriceBook.Remove(key);
-            //        _sortedBuyPriceBook.Remove(book);
-            //    }
-            //}
-
-            //public PriceBook Get(string key)
-            //{
-            //    if (ContainsKey(key))
-            //        return _buyPriceBook[key];
-
-            //    return null;
-            //}
-
-            //public bool ContainsKey(string key)
-            //{
-            //    return _buyPriceBook.ContainsKey(key);
-            //}
-
-            //public PriceBook Peek()
-            //{
-            //    if (_buyPriceBook.Count > 0)
-            //    {
-            //        return _sortedBuyPriceBook.First();
-            //    }
-
-            //    return null;
-            //}
-
-            //public PriceBook GetFirstBuyBook()
-            //{
-            //    if (_buyPriceBook.Count > 0)
-            //    {
-            //        var book = _sortedBuyPriceBook.First();
-
-            //        _buyPriceBook.Remove(book.OrderId);
-            //        _sortedBuyPriceBook.Remove(book);
-
-            //        return book;
-            //    }
-
-            //    return null;
-            //}
 
             public override void Dump()
             {
                 foreach (var key in _sortedPriceBook)
                 {
-                    Console.WriteLine(_priceBook[key.OrderId].Price);
+                    Console.WriteLine($"{_priceBook[key.OrderId].Price} {_priceBook[key.OrderId].Quantity}");
                 }
             }
-
-            //public class PriceBookComparer : IComparer<PriceBook>
-            //{
-            //    public int Compare(PriceBook x, PriceBook y)
-            //    {
-            //        int priceDiff = x.Price.CompareTo(y.Price);
-
-            //        if (priceDiff == 0)
-            //        {
-            //            int quantityDiff = x.Quantity.CompareTo(y.Quantity);
-
-            //            if (quantityDiff == 0)
-            //                return x.CurrentTime.CompareTo(y.CurrentTime);
-            //            else
-            //                return quantityDiff;
-            //        }
-            //        else
-            //            return priceDiff;
-            //    }
-            //}
         }
 
         public class PriceBookReverseComparer : IComparer<PriceBook>
@@ -383,7 +336,7 @@ namespace Practice
                     int quantityDiff = y.Quantity.CompareTo(x.Quantity);
 
                     if (quantityDiff == 0)
-                        return y.CurrentTime.CompareTo(x.CurrentTime);
+                        return x.CurrentTime.CompareTo(y.CurrentTime);
                     else
                         return quantityDiff;
                 }
@@ -394,110 +347,18 @@ namespace Practice
 
         public class SellPriceBookList : PriceBookList
         {
-            public SellPriceBookList() : base(new PriceBookReverseComparer())
+            public SellPriceBookList() : base(new PriceBookComparer())
             {
 
             }
-            //private Dictionary<string, PriceBook> _sellPriceBook;
-            //private SortedSet<PriceBook> _sortedSellPriceBook;
-
-            //public SellPriceBookList()
-            //{
-            //    _sellPriceBook = new Dictionary<string, PriceBook>();
-            //    _sortedSellPriceBook = new SortedSet<PriceBook>(new PriceBookComparer());
-            //}
-            //public void Add(string key, PriceBook book)
-            //{
-            //    if (!_sellPriceBook.ContainsKey(key))
-            //    {
-            //        _sellPriceBook.Add(key, book);
-            //        _sortedSellPriceBook.Add(book);
-            //    }
-            //    else
-            //    {
-            //        _sellPriceBook.Remove(key);
-            //        _sortedSellPriceBook.Remove(book);
-
-            //        _sellPriceBook.Add(key, book);
-            //        _sortedSellPriceBook.Add(book);
-            //    }
-            //}
-
-            //public void Remove(string key)
-            //{
-            //    if (_sellPriceBook.ContainsKey(key))
-            //    {
-            //        var book = _sellPriceBook[key];
-            //        _sellPriceBook.Remove(key);
-            //        _sortedSellPriceBook.Remove(book);
-            //    }
-            //}
-
-            //public bool ContainsKey(string key)
-            //{
-            //    return _sellPriceBook.ContainsKey(key);
-            //}
-
-            //public PriceBook Get(string key)
-            //{
-            //    if (ContainsKey(key))
-            //        return _sellPriceBook[key];
-
-            //    return null;
-            //}
-
-            //public PriceBook Peek()
-            //{
-            //    if (_sellPriceBook.Count > 0)
-            //    {
-            //        return _sortedSellPriceBook.First();
-            //    }
-
-            //    return null;
-            //}
-
-            //public PriceBook GetFirstBuyBook()
-            //{
-            //    if (_sellPriceBook.Count > 0)
-            //    {
-            //        var book = _sortedSellPriceBook.First();
-
-            //        _sellPriceBook.Remove(book.OrderId);
-            //        _sortedSellPriceBook.Remove(book);
-
-            //        return book;
-            //    }
-
-            //    return null;
-            //}
 
             public override void Dump()
             {
                 foreach (var key in _sortedPriceBook.Reverse())
                 {
-                    Console.WriteLine(_priceBook[key.OrderId].Price);
+                    Console.WriteLine($"{_priceBook[key.OrderId].Price} {_priceBook[key.OrderId].Quantity}");
                 }
             }
-
-            //public class PriceBookComparer : IComparer<PriceBook>
-            //{
-            //    public int Compare(PriceBook x, PriceBook y)
-            //    {
-            //        int priceDiff = y.Price.CompareTo(x.Price);
-
-            //        if (priceDiff == 0)
-            //        {
-            //            int quantityDiff = y.Quantity.CompareTo(x.Quantity);
-
-            //            if (quantityDiff == 0)
-            //                return y.CurrentTime.CompareTo(x.CurrentTime);
-            //            else
-            //                return quantityDiff;
-            //        }
-            //        else
-            //            return priceDiff;
-            //    }
-            //}
         }
 
         public enum OrderType
