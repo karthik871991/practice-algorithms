@@ -161,7 +161,6 @@ namespace ConsoleApp1
                 hashset = new HashSet<string>(wordsToExclude);
             }
 
-
             var wordArr = literatureText
                             .Replace("!", " ")
                             .Replace("?", " ")
