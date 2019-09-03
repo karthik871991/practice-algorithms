@@ -40,5 +40,13 @@ namespace Tests
             var result = new MinCostToConnectRopes().MinCost(input);
             Assert.AreEqual(20, result);
         }
+
+        [TestMethod]
+        public void Test5()
+        {
+            var input = new List<int> { 5 };
+            var result = new MinCostToConnectRopes().MinCost(input);
+            Assert.AreEqual(5, result);
+        }
     }
 }

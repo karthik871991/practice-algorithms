@@ -9,6 +9,9 @@ namespace AlgoPractice
     {
         public int MinCost(List<int> ropes)
         {
+            if (ropes.Count == 1)
+                return 0;
+
             var set = new SortedSet<Data>(new IntComparer());
 
             foreach (var number in ropes)
@@ -24,6 +27,7 @@ namespace AlgoPractice
                 if (set.Count == 1)
                 {
                     result += set.First().Number;
+                    set.Remove(set.First());
                     continue;
                 }
 
@@ -48,8 +52,6 @@ namespace AlgoPractice
         public class Data
         {
             public int Number { get; set; }
-            public Guid Ticks { get; set; } = Guid.NewGuid();
-
         }
 
         internal class IntComparer : IComparer<Data>
@@ -61,7 +63,6 @@ namespace AlgoPractice
                 if (result != 0)
                     return result;
                 else
-                    //return a.Ticks.CompareTo(b.Ticks);
                     return a.GetHashCode().CompareTo(b.GetHashCode());
             }
         }
