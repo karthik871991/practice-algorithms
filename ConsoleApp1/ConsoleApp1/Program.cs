@@ -9,7 +9,9 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
-
+            var a = "";
+            var b = "asa";
+            var c = a ?? b;
             //retrieveMostFrequentlyUsedWords(null, null);
 
             //GetStrings("awaglknagawunagwkwagl", 4);

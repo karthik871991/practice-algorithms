@@ -1,8 +1,5 @@
 ﻿using AlgoPractice;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Tests
 {
@@ -14,7 +11,7 @@ namespace Tests
         {
             var input = "eceba";
 
-            var result = new LongestSubstringWithAtMostKDistinctCharacters().LengthOfLongestSubstringTwoDistinct(input);
+            var result = new LongestSubstringWithAtMostKDistinctCharacters().LengthOfLongestSubstringKDistinct(input, 2);
 
             Assert.AreEqual(3, result);
         }
@@ -24,10 +21,39 @@ namespace Tests
         {
             var input = "ccaabbb";
 
-            var result = new LongestSubstringWithAtMostKDistinctCharacters().LengthOfLongestSubstringTwoDistinct(input);
+            var result = new LongestSubstringWithAtMostKDistinctCharacters().LengthOfLongestSubstringKDistinct(input, 2);
 
             Assert.AreEqual(5, result);
         }
 
+        [TestMethod]
+        public void Test3()
+        {
+            var input = "aa";
+
+            var result = new LongestSubstringWithAtMostKDistinctCharacters().LengthOfLongestSubstringKDistinct(input, 1);
+
+            Assert.AreEqual(2, result);
+        }
+
+        [TestMethod]
+        public void Test4()
+        {
+            var input = "aa";
+
+            var result = new LongestSubstringWithAtMostKDistinctCharacters().SubstringKDistinctCount(input, 1);
+
+            Assert.AreEqual(2, result);
+        }
+
+        [TestMethod]
+        public void Test5()
+        {
+            var input = "pqpqs";
+
+            var result = new LongestSubstringWithAtMostKDistinctCharacters().SubstringKDistinctCount(input, 2);
+
+            Assert.AreEqual(7, result);
+        }
     }
 }

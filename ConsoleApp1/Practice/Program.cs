@@ -81,6 +81,9 @@ namespace Practice
 
         static void Main(string[] args)
         {
+            var a = "";
+            var b = "asa";
+            var c = a ?? b;
             var buyList = new BuyPriceBookList();
             var sellList = new SellPriceBookList();
 
