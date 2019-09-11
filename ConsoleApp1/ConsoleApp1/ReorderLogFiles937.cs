@@ -29,6 +29,8 @@ namespace AlgoPractice
                 }
             }
 
+            Array.Sort(stringList.ToArray(), (a,b)=>a.Identifier.CompareTo(b.Identifier));
+
             var sortedStringList = stringList.OrderBy(x => x.Value).ThenBy(x => x.Identifier).Select(x => x.OrginalString).ToList();
 
             sortedStringList.AddRange(numberList);

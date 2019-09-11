@@ -7,8 +7,17 @@ namespace ConsoleApp1
 {
     class AlgoPractice
     {
+        public class Sample
+        {
+            public int A { get; set; }
+            public int B { get; set; }
+        }
         static void Main(string[] args)
         {
+            var dateTime = DateTime.MaxValue;
+
+            var newtime = dateTime.AddMilliseconds(5);
+
             var a = "";
             var b = "asa";
             var c = a ?? b;
