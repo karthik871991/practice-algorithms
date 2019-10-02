@@ -7,11 +7,12 @@ namespace AlgoPractice
 {
     public class OptimalUtilization
     {
-        public List<int[]> GetOptimalUtilization(int[,] arr1, int[,] arr2, int target)
+        public List<List<int>> GetOptimalUtilization(List<List<int>> arr1, List<List<int>> arr2, int target)
         {
-            if (arr1.GetUpperBound(0) < 0 || arr2.GetUpperBound(0) < 0)
+
+            if (arr1.Count < 0 || arr2.Count < 0)
             {
-                return new List<int[]>();
+                return new List<List<int>>();
             }
 
             var list1 = GetGroupedItemsSorted(arr1);
@@ -25,9 +26,9 @@ namespace AlgoPractice
             return FindAllPairs(list1, list2, target);
         }
 
-        private List<int[]> FindAllPairsStandard(List<Data> list1, List<Data> list2, int target)
+        private List<List<int>> FindAllPairsStandard(List<Data> list1, List<Data> list2, int target)
         {
-            var result = new List<int[]>();
+            var result = new List<List<int>>();
 
             var currentMax = int.MinValue;
 
@@ -41,7 +42,7 @@ namespace AlgoPractice
                     {
                         if (sum > currentMax)
                         {
-                            result = new List<int[]>();
+                            result = new List<List<int>>();
                         }
 
                         currentMax = sum;
@@ -50,7 +51,7 @@ namespace AlgoPractice
                         {
                             foreach (var l2Id in l2.IDs)
                             {
-                                result.Add(new int[] { l1Id, l2Id });
+                                result.Add(new List<int> { l1Id, l2Id });
                             }
                         }
                     }
@@ -60,15 +61,15 @@ namespace AlgoPractice
             return result;
         }
 
-        private List<int[]> FindAllPairs(List<Data> list1, List<Data> list2, int target)
+        private List<List<int>> FindAllPairs(List<Data> list1, List<Data> list2, int target)
         {
-            var result = new List<int[]>();
+            var result = new List<List<int>>();
             var currentMax = int.MinValue;
 
             int l = 0, r = list2.Count - 1;
 
 
-            while (l != list1.Count && r != 0)
+            while (l < list1.Count && r >= 0)
             {
                 var sum = list1[l].Number + list2[r].Number;
 
@@ -76,7 +77,7 @@ namespace AlgoPractice
                 {
                     if (sum > currentMax)
                     {
-                        result = new List<int[]>();
+                        result = new List<List<int>>();
                     }
                     currentMax = sum;
                     if (list1[l].IDs.Count > 1 || list2[r].IDs.Count > 1)
@@ -85,13 +86,13 @@ namespace AlgoPractice
                         {
                             foreach (var l2Id in list2[r].IDs)
                             {
-                                result.Add(new int[] { l1Id, l2Id });
+                                result.Add(new List<int> { l1Id, l2Id });
                             }
                         }
                     }
                     else
                     {
-                        result.Add(new int[] { list1[l].IDs.Single(), list2[r].IDs.Single() });
+                        result.Add(new List<int> { list1[l].IDs.Single(), list2[r].IDs.Single() });
                     }
                     l++;
                 }
@@ -101,21 +102,26 @@ namespace AlgoPractice
                 }
             }
 
+            //if (l == list1.Count - 1 && r == 0)
+            //{
+            //    result.AddRange(FindAllPairsStandard(new List<Data> { list1[l - 1] }, new List<Data> { list2[r] }, target));
+            //}
+
             return result;
         }
 
-        private List<Data> GetGroupedItemsSorted(int[,] arr)
+        private List<Data> GetGroupedItemsSorted(List<List<int>> arr)
         {
             var dict = new Dictionary<int, Data>();
-            for (int i = 0; i <= arr.GetUpperBound(0); i++)
+            for (int i = 0; i < arr.Count; i++)
             {
-                if (!dict.ContainsKey(arr[i, 1]))
+                if (!dict.ContainsKey(arr[i][1]))
                 {
-                    dict.Add(arr[i, 1], new Data { Number = arr[i, 1], IDs = new List<int> { arr[i, 0] } });
+                    dict.Add(arr[i][1], new Data { Number = arr[i][1], IDs = new List<int> { arr[i][0] } });
                 }
                 else
                 {
-                    dict[arr[i, 1]].IDs.Add(arr[i, 0]);
+                    dict[arr[i][1]].IDs.Add(arr[i][0]);
                 }
             }
 
