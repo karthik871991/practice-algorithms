@@ -14,43 +14,22 @@ namespace AlgoPractice
 
         public bool IsCompleteTree(TreeNode root)
         {
-            if (root == null)
-                return true;
-
-            if (root.left == null && root.right == null)
-                return true;
-
             var q = new Queue<TreeNode>();
             q.Enqueue(root);
 
-            while (q.Count != 0)
+            while(q.Peek() != null)
             {
-                var size = q.Count;
-
-                for (int i = 0; i < size; i++)
-                {
-                    var cur = q.Dequeue();
-                    q.Enqueue(cur.left);
-                    q.Enqueue(cur.right);
-                }
-
-                if (size != 2 * q.Count)
-                    return false;
+                var curr = q.Dequeue();
+                q.Enqueue(curr.left);
+                q.Enqueue(curr.right);
             }
 
-            bool f = false;
-
-            while (q.Count != 0)
+            while(q.Count != 0 && q.Peek() == null)
             {
-                if (!f)
-                    f = q.Dequeue() == null;
-                else
-                {
-
-                }
+                q.Dequeue();
             }
 
-            return true;
+            return q.Count == 0;
         }
     }
 }
