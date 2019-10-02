@@ -78,9 +78,20 @@ namespace Practice
         public Solution()
         {
         }
-
+        public class Sample
+        {
+            public int A { get; set; }
+            public int B { get; set; }
+        }
         static void Main(string[] args)
         {
+            var list = new List<Sample>();
+
+            for (int i = 0; i < int.MaxValue; i++)
+            {
+                list.Add(new Sample { A = i, B = i });
+            }
+
             var a = "";
             var b = "asa";
             var c = a ?? b;
