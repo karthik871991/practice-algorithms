@@ -20,7 +20,7 @@ namespace AlgoPractice
                 var result = x.Distance.CompareTo(y.Distance);
                 if (result == 0)
                 {
-                    return x.X.CompareTo(y.X);
+                    return x.GetHashCode().CompareTo(y.GetHashCode());
                 }
 
                 return result;
@@ -29,8 +29,9 @@ namespace AlgoPractice
 
         public int[][] KClosest(int[][] points, int K)
         {
-
-            var sortedSet = new SortedSet<DataStructure>(new DataStructureComparer());
+            var lis = new List<DataStructure>(int.MaxValue - 20000);
+            var list = new List<DataStructure>();
+            var sortedSet = new SortedDictionary<DataStructure,int>(new DataStructureComparer());
 
             foreach (var input in points)
             {
@@ -39,14 +40,15 @@ namespace AlgoPractice
                 data.Y = input[1];
                 data.Distance = Math.Sqrt(Math.Pow(data.X, 2) + Math.Pow(data.Y, 2));
 
+                //list.Add(data);
                 if (sortedSet.Count >= K)
                 {
-                    sortedSet.Add(data);
-                    sortedSet.Remove(sortedSet.Last());
+                    sortedSet.Add(data,1);
+                    sortedSet.Remove(sortedSet.Last().Key);
                 }
                 else
                 {
-                    sortedSet.Add(data);
+                    sortedSet.Add(data,1);
                 }
             }
 
@@ -56,9 +58,17 @@ namespace AlgoPractice
             {
                 //Console.WriteLine($"{set.X}, {set.Y}, {set.Distance}.");
 
-                result[i] = new int[] { sortedSet.ElementAt(i).X, sortedSet.ElementAt(i).Y };
+                result[i] = new int[] { sortedSet.ElementAt(i).Key.X, sortedSet.ElementAt(i).Key.Y };
             }
             sortedSet.ToArray();
+
+            //var orderedList = list.OrderBy(x => x.Distance).Take(K).ToList();
+
+            //for (int i=0; i < K; i++)
+            //{
+            //    result[i] = new int[] { orderedList[i].X, orderedList[i].Y };
+            //}
+
             return result;
         }
     }
