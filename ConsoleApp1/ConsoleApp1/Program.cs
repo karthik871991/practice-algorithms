@@ -14,6 +14,20 @@ namespace ConsoleApp1
         }
         static void Main(string[] args)
         {
+            var s = "12345";
+            var mat = new int[5, 5];
+
+            var result = 0;
+
+            for (int i = 0; i <= s.Length; i++)
+            {
+                for (int j = 0; j < s.Length - i; j++)
+                {
+
+                    Console.WriteLine(j + " - " + (j + i));
+                }
+            }
+
             var dateTime = DateTime.MaxValue;
 
             var newtime = dateTime.AddMilliseconds(5);
