@@ -8,11 +8,6 @@ namespace AlgoPractice
     {
         public int[] PrisonAfterNDays(int[] cells, int N)
         {
-            var tree = new SortedDictionary<int, int>();
-            foreach (var t in tree)
-            {
-
-            }
             var map = new Dictionary<string, int[]>();
 
             var cellsCopy = new int[cells.Length];
