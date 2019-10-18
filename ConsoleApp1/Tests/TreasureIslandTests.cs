@@ -12,28 +12,41 @@ namespace Tests
         [TestMethod]
         public void Test1()
         {
-            char[,] input = {{'O', 'O', 'O', 'O'},
-                             {'D', 'O', 'D', 'O'},
-                             {'O', 'O', 'O', 'O'},
-                             {'X', 'D', 'D', 'O'}};
+            int[,] input = { {1, 0, 0,},
+                             {1, 0, 0,},
+                             {1, 9, 1,}};
 
-            var result = new TreasureIsland().MinSteps(input);
+            var result = new TreasureIsland().removeObstacle(0,0,input);
 
-            Assert.AreEqual(5, result);
+            Assert.AreEqual(3, result);
         }
 
         [TestMethod]
         public void Test2()
         {
-            char[,] input = {{'O', 'O', 'O', 'O'},
-                             {'D', 'D', 'D', 'O'},
-                             {'O', 'O', 'O', 'o'},
-                             {'o', 'D', 'D', 'D'},
-                             {'o', 'o', 'o', 'X'}};
+            int[,] input = { {1, 1, 1, 1},
+                             {0, 0, 0, 1},
+                             {1, 1, 1, 1},
+                             {1, 1, 1, 1},
+                             {1, 1, 1, 9}};
 
-            var result = new TreasureIsland().MinSteps(input);
+            var result = new TreasureIsland().removeObstacle(0,0,input);
 
-            Assert.AreEqual(13, result);
+            Assert.AreEqual(7, result);
+        }
+
+        [TestMethod]
+        public void Test3()
+        {
+            int[,] input = { {1, 1, 0, 1},
+                             {0, 0, 0, 1},
+                             {1, 1, 1, 1},
+                             {1, 1, 1, 1},
+                             {1, 1, 1, 9}};
+
+            var result = new TreasureIsland().removeObstacle(0,0,input);
+
+            Assert.AreEqual(-1, result);
         }
     }
 }

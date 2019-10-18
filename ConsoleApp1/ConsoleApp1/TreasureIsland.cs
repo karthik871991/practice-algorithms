@@ -4,7 +4,7 @@ namespace AlgoPractice
 {
     public class TreasureIsland
     {
-        public int MinSteps(char[, ] grid)
+        public int removeObstacle(int numRows, int numColumns, int[, ] grid)
         {
             var q = new Queue<Data>();
 
@@ -17,12 +17,12 @@ namespace AlgoPractice
             {
                 var data = q.Dequeue();
                 
-                if (grid[data.X, data.Y] == 'X')
+                if (grid[data.X, data.Y] == 9)
                     return data.Distance;
 
                 foreach (var point in GetNextPoints(data.X, data.Y, grid))
                 {
-                    if(!set.Contains(point[0] + "," + point[1]) && grid[point[0], point[1]] != 'D')
+                    if(!set.Contains(point[0] + "," + point[1]) && grid[point[0], point[1]] != 0)
                     {
                         set.Add(data.X + "," + data.Y);
                         q.Enqueue(new Data { X = point[0], Y = point[1], Distance = data.Distance + 1 });
@@ -30,10 +30,10 @@ namespace AlgoPractice
                 }
             }
 
-            return 0;
+            return -1;
         }
 
-        public List<int[]> GetNextPoints(int x, int y, char[, ] grid)
+        public List<int[]> GetNextPoints(int x, int y, int[, ] grid)
         {
             var list = new List<int[]>();
 
@@ -52,7 +52,7 @@ namespace AlgoPractice
             return list;
         }
 
-        private bool CheckBoundary(int x, int y, char[, ] grid)
+        private bool CheckBoundary(int x, int y, int[, ] grid)
         {
             if (x >= 0 && x <= grid.GetUpperBound(0) && y >= 0 && y <= grid.GetUpperBound(1))
                 return true;

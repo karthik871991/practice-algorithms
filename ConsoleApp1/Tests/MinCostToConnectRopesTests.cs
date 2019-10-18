@@ -44,9 +44,9 @@ namespace Tests
         [TestMethod]
         public void Test5()
         {
-            var input = new List<int> { 5 };
+            var input = new List<int> { 20,4,8,2 };
             var result = new MinCostToConnectRopes().MinCost(input);
-            Assert.AreEqual(5, result);
+            Assert.AreEqual(54, result);
         }
     }
 }
