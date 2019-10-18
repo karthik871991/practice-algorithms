@@ -6,10 +6,24 @@ namespace AlgoPractice
 {
     public class ConnectingCitiesWithMinimumCost
     {
-        public int MinimumCost(int N, int[,] connections)
+        public class Data
         {
-            //Array.Sort(connections, (a, b) => a[2].CompareTo(b[2]));
-            var graph = new Dictionary<int, int>();
+            public int City { get; set; }
+            public int Cost { get; set; }
+        }
+
+        public class DataComparer : IComparer<Data>
+        {
+            public int Compare(Data x, Data y)
+            {
+                return x.Cost.CompareTo(y.Cost);
+            }
+        }
+        public int MinimumCost(int N, int[][] connections)
+        {
+            //var graph = new SortedDictionary<int, Data>(new DataComparer());
+
+
             return 0;
         }
 
