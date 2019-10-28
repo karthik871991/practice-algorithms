@@ -4,12 +4,12 @@ using System.Text;
 
 namespace AlgoPractice
 {
-    public class TreeNode
-    {
-        public int val;
-        public TreeNode left;
-        public TreeNode right;
-    }
+    //public class TreeNode
+    //{
+    //    public int val;
+    //    public TreeNode left;
+    //    public TreeNode right;
+    //}
     public class MaximumLevelSumofaBinaryTree
     {
         public int MaxLevelSum(TreeNode root)
