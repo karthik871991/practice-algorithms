@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AlgoPractice.BinaryTree;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -51,5 +52,12 @@ namespace AlgoPractice
 
             return maxLevel;
         }
+
+        //public class TreeNode
+        //{
+        //    public TreeNode left { get; set; }
+        //    public TreeNode right { get; set; }
+        //    public int val { get; set; }
+        //}
     }
 }
