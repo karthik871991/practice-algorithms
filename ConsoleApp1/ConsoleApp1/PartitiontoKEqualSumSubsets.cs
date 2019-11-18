@@ -6,7 +6,7 @@ namespace AlgoPractice
     public class PartitiontoKEqualSumSubsets
     {
         public bool CanPartitionKSubsets(int[] nums, int k)
-        {
+        {            
             var total = 0;
             var map = new Dictionary<int, int>();
 
