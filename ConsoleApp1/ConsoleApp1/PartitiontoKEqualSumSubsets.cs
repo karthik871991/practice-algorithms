@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace AlgoPractice
@@ -6,64 +7,63 @@ namespace AlgoPractice
     public class PartitiontoKEqualSumSubsets
     {
         public bool CanPartitionKSubsets(int[] nums, int k)
-        {            
-            var total = 0;
-            var map = new Dictionary<int, int>();
+        {
+            var sum = 0;
 
-            var list = new List<Data>();
+            Array.Sort(nums);
 
-            foreach (var item in nums)
+            for (int i = 0; i < nums.Length; i++)
             {
-                total += item;
-                if (!map.ContainsKey(item))
-                {
-                    map.Add(item, 1);
-                }
-                else
-                {
-                    map[item]++;
-                }
+                sum += nums[i];
             }
 
-            if (total % k != 0)
+            if (sum % k != 0)
                 return false;
 
-            foreach (var item in map)
-            {
-                list.Add(new Data { Number = item.Key, Count = item.Value });
-            }
-
-            var ordList = list.OrderBy(x => x.Number).ToList();
+            var sortedSet = new SortedSet<Data>(new DataComparer());
 
             for (int i = 0; i < k; i++)
             {
-                var groupTotal = total / k;
-
-                int j = ordList.Count - 1;
-
-                while (j >= 0)
-                {
-                    while (ordList[j].Count > 0 && ordList[j].Number <= groupTotal)
-                    {
-                        groupTotal -= ordList[j].Number;
-                        ordList[j].Count--;
-                    }
-
-                    j--;
-                }
-
-                if (groupTotal > 0)
-                    return false;
+                sortedSet.Add(new Data { ID = i });
             }
 
-            return true;
+            for (int i = nums.Length - 1; i >= 0; i--)
+            {
+                var data = sortedSet.First();
+
+                sortedSet.Remove(data);
+
+                data.Sum += nums[i];
+                data.List.Add(nums[i]);
+
+                sortedSet.Add(data);
+            }
+
+            if (sortedSet.Select(x => x.Sum).Distinct().Count() == 1)
+                return true;
+
+            return false;
+        }
+
+        public class DataComparer : IComparer<Data>
+        {
+            public int Compare(Data x, Data y)
+            {
+                var d = x.Sum.CompareTo(y.Sum);
+
+                if (d == 0)
+                    return x.ID.CompareTo(y.ID);
+
+                return d;
+            }
         }
 
         public class Data
         {
-            //public int Index { get; set; }
-            public int Number { get; set; }
-            public int Count { get; set; }
+            public List<int> List { get; set; } = new List<int>();
+            public int Sum { get; set; }
+            public int Position { get; set; }
+            public int ID { get; set; }
         }
     }
 }

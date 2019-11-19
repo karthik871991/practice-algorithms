@@ -40,5 +40,13 @@ namespace Tests
             var result = new PartitiontoKEqualSumSubsets().CanPartitionKSubsets(input, 3);
             Assert.IsTrue(result);
         }
+
+        [TestMethod]
+        public void TestMethod5()
+        {
+            var input = new int[] { 2, 2, 10, 5, 2, 7, 2, 2, 13 };
+            var result = new PartitiontoKEqualSumSubsets().CanPartitionKSubsets(input, 3);
+            Assert.IsTrue(result);
+        }
     }
 }
