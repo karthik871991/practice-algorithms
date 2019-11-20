@@ -4,7 +4,7 @@
     {
         public TreeNode BuildTree(int[] arr)
         {
-            var node = new TreeNode { Value = arr[0] };
+            var node = new TreeNode { val = arr[0] };
 
             for (int i = 1; i < arr.Length; i++)
             {
@@ -21,19 +21,19 @@
             {
                 pre = node;
 
-                if (node.Value > num)
-                    node = node.Left;
+                if (node.val > num)
+                    node = node.left;
                 else
-                    node = node.Right;
+                    node = node.right;
             }
 
-            if (pre.Value > num)
+            if (pre.val > num)
             {
-                pre.Left = new TreeNode { Value = num };
+                pre.left = new TreeNode { val = num };
             }
             else
             {
-                pre.Right = new TreeNode { Value = num };
+                pre.right = new TreeNode { val = num };
             }
         }
 

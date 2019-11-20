@@ -18,7 +18,7 @@
         {
             if(current == null)
             {
-                return new TreeNode { Value = value };
+                return new TreeNode { val = value };
             }
             //else if()
             //{
