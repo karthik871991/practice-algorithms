@@ -9,62 +9,35 @@ namespace Practice
 {
     class Solution
     {
-        public Solution()
+        public int MaxLength(List<string> list)
         {
+            var maxLength = 0;
 
+            Explore(list, maxLength, 0, "");
+
+            return maxLength;
         }
 
-        public class Data
+        private static void Explore(List<string> list, int maxLength, int index, string path)
         {
-            public int A { get; set; }
-            public int B { get; set; }
-
-            public async Task<int> DoWork()
+            if (!IsUnique(path))
             {
-                Console.WriteLine("inside dowork");
-                await Task.WhenAll();
-                return 1;
+                return;
             }
 
-            public async Task<int> DoNetworkCall()
-            {
-                Console.WriteLine("network call");
+            var current = path.Length;
+            maxLength = current > maxLength ? current : maxLength;
 
-                return 1;
+            for (int i = index; i < list.Count; i++)
+            {
+                Explore(list, maxLength, i + 1, path + list[i]);
             }
         }
 
-        static void Main(string[] args)
+        private static bool IsUnique(string path)
         {
-            var db = new List<Data> { new Data { A = 1, B = 1 }, new Data { A = 3, B = 1 } };
-            var local = new List<Data> { new Data { A = 1, B = 2 }, new Data { A = 2, B = 2 } };
-            var count = 0;
-            db.ToList().ForEach(async x => await x.DoWork());
-
-            Console.WriteLine("Complete");
-
-            db.ToList().ForEach(async x => await x.DoWork());
-
-            Console.WriteLine("Complete");
-            
-            var merged = local.Intersect(db);//, new DataComparer());
-        }
-
-
-        public class DataComparer : IEqualityComparer<Data>
-        {
-            public new bool Equals(Data x, Data y)
-            {
-                if (ReferenceEquals(x, y))
-                    return true;
-
-                return x.A == y.A;
-            }
-
-            public int GetHashCode(Data obj)
-            {
-                return obj.A.GetHashCode();
-            }
+            var hashSet = new HashSet<char>(path);
+            return path.Length == hashSet.Count();
         }
     }
 }
