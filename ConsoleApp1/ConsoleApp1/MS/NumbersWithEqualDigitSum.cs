@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace AlgoPractice.MS
 {
@@ -13,6 +14,7 @@ namespace AlgoPractice.MS
 
             for (int i = 0; i < A.Length; i++)
             {
+                var s = A.Max();
                 var digitSum = Sum(A[i]);
 
                 if (map.ContainsKey(digitSum))
