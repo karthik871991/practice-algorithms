@@ -1,9 +1,4 @@
-﻿using AlgoPractice.BinaryTree;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace AlgoPractice
+﻿namespace AlgoPractice
 {
     public class ValidateBinarySearchTree
     {
@@ -25,12 +20,13 @@ namespace AlgoPractice
 
             return IsValid(root.left, min, root.val) && IsValid(root.right, root.val, max);
         }
+        public class TreeNode
+        {
+            public int val;
+            public TreeNode left;
+            public TreeNode right;
+        }
     }
 
-    //public class TreeNode
-    //{
-    //    public int val;
-    //    public TreeNode left;
-    //    public TreeNode right;
-    //}
+    
 }

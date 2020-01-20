@@ -8,7 +8,7 @@ using System.Text;
 namespace Tests
 {
     [TestClass]
-    public class ValidateBinarySearchTreeTests
+    public class ValidateBinarySearchTreeTests : ValidateBinarySearchTree
     {
         [TestMethod]
         public void TestMethod1()

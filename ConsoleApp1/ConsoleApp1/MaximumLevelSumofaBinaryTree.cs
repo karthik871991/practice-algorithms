@@ -1,16 +1,13 @@
-﻿using AlgoPractice.BinaryTree;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace AlgoPractice
 {
-    //public class TreeNode
-    //{
-    //    public int val;
-    //    public TreeNode left;
-    //    public TreeNode right;
-    //}
+    public class TreeNode
+    {
+        public int val;
+        public TreeNode left;
+        public TreeNode right;
+    }
     public class MaximumLevelSumofaBinaryTree
     {
         public int MaxLevelSum(TreeNode root)

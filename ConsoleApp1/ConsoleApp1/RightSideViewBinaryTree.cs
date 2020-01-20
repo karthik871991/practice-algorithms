@@ -1,8 +1,4 @@
-﻿using AlgoPractice.BinaryTree;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace AlgoPractice
 {
@@ -42,12 +38,12 @@ namespace AlgoPractice
 
             return result;
         }
+        public class TreeNode
+        {
+            public TreeNode left { get; set; }
+            public TreeNode right { get; set; }
+            public int val { get; set; }
+        }
 
-        //public class TreeNode
-        //{
-        //    public TreeNode left { get; set; }
-        //    public TreeNode right { get; set; }
-        //    public int val { get; set; }
-        //}
     }
 }

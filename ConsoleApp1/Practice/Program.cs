@@ -9,6 +9,10 @@ namespace Practice
 {
     class Solution
     {
+        public static void Main(string[] aargs)
+        {
+
+        }
         public int MaxLength(List<string> list)
         {
             var maxLength = 0;
