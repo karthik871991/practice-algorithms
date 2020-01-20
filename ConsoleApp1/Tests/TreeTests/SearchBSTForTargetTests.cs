@@ -7,7 +7,7 @@ using System.Text;
 namespace Tests.TreeTests
 {
     [TestClass]
-    public class SearchBSTForTargetTests
+    public class SearchBSTForTargetTests : SearchBSTForTarget
     {
         [TestMethod]
         public void TestMethod1()

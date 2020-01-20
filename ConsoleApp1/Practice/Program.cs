@@ -10,56 +10,61 @@ namespace Practice
 {
     class Solution
     {
-        public class Data
+        public static void Main(string[] aargs)
         {
-            public int A { get; set; }
-            public int B { get; set; }
 
-            public int GetA()
+        }
+        public int MaxLength(List<string> list)
+        {
+            var maxLength = 0;
+
+            public async Task<int> DoWork()
             {
-                return A;
+                Console.WriteLine("inside dowork");
+                await Task.WhenAll();
+                return 1;
+            }
+
+            public async Task<int> DoNetworkCall()
+            {
+                Console.WriteLine("network call");
+
+                return 1;
             }
         }
 
         static void Main(string[] args)
         {
-            var l = new LinkedList<string>();
+            var db = new List<Data> { new Data { A = 1, B = 1 }, new Data { A = 3, B = 1 } };
+            var local = new List<Data> { new Data { A = 1, B = 2 }, new Data { A = 2, B = 2 } };
+            var count = 0;
+            db.ToList().ForEach(async x => await x.DoWork());
 
-            lock (l)
-            {
+            Console.WriteLine("Complete");
 
-            }
+            db.ToList().ForEach(async x => await x.DoWork());
 
-            var list = new LinkedList<string>();
-            var random = new Random().NextDouble();
-            var db = new List<Data> { new Data { A = 1, B = 1 }, new Data { A = 2, B = 2 }, new Data { A = 3, B = 3 } };
-            var local = new List<Data> { new Data { A = 1, B = 1 }, new Data { A = 2, B = 2 }, new Data { A = 0, B = 0 } };
-
-            var d = new Data { A = 5, B = 5 }
-;
-            var str = JsonConvert.SerializeObject(d);
             Console.WriteLine("Complete");
             
-            var union = local.Union(db, new DataComparer()).ToList();
-
-            var intersect = local.Intersect(db, new DataComparer()).ToList();
-
-            var updates = union.Except(intersect, new DataComparer()).ToList();
-
-            var sameIds = updates.GroupBy(x => x.A);
+            var merged = local.Intersect(db);//, new DataComparer());
         }
 
+            var current = path.Length;
+            maxLength = current > maxLength ? current : maxLength;
 
         public class DataComparer : IEqualityComparer<Data>
         {
-            public bool Equals(Data x, Data y)
+            public new bool Equals(Data x, Data y)
             {
-                return x.A == y.A && x.B == y.B;
+                if (ReferenceEquals(x, y))
+                    return true;
+
+                return x.A == y.A;
             }
 
             public int GetHashCode(Data obj)
             {
-                return 0;
+                return obj.A.GetHashCode();
             }
         }
     }

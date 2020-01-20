@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace AlgoPractice.MS
+﻿namespace AlgoPractice.MS
 {
     public class MinMovestoObtainStringWithout3IdenticalConsecutiveLetters
     {

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -14,38 +13,54 @@ namespace ConsoleApp1
         }
         static void Main(string[] args)
         {
-            var s = "12345";
-            var mat = new int[5, 5];
+            var nums = new int[] { 6, 7, 0, 1, 2, 3, 4 };
+            var people = new int[6][] 
+            { new int[]{7, 0 }, 
+            new int[]{4, 4 }, 
+            new int[]{7, 1}, 
+            new int[]{5, 0}, 
+            new int[]{6, 1},
+            new int[]{5, 2}};
 
-            var result = 0;
+            var result = ReconstructQueue(people);
 
-            for (int i = 0; i <= s.Length; i++)
-            {
-                for (int j = 0; j < s.Length - i; j++)
-                {
-
-                    Console.WriteLine(j + " - " + (j + i));
-                }
-            }
-
-            var dateTime = DateTime.MaxValue;
-
-            var newtime = dateTime.AddMilliseconds(5);
-
-            var a = "";
-            var b = "asa";
-            var c = a ?? b;
-            //retrieveMostFrequentlyUsedWords(null, null);
-
-            //GetStrings("awaglknagawunagwkwagl", 4);
-            //GetStrings("abcd", 3);
-
-            int[] nums = new int[10];
-            Array.Fill(nums, -1);
-
+            //Search(nums, 0);
 
             Console.ReadKey();
         }
+        public static int[][] ReconstructQueue(int[][] people)
+        {
+            var list = new LinkedList<string>();
+            var map = Enumerable.Range(0, people.Length).ToList();
+
+            var sorted = people.OrderBy(p => p[0]).ThenByDescending(p => p[1]);
+
+            foreach (var person in sorted)
+            {
+                people[map[person[1]]] = new[] { person[0], person[1] };
+                map.RemoveAt(person[1]);
+            }
+
+            return people;
+        }
+        public static int Search(int[] nums, int target)
+        {
+            int lo = 0, hi = nums.Length - 1;
+            // find the index of the smallest value using binary search.
+            // Loop will terminate since mid < hi, and lo or hi will shrink by at least 1.
+            // Proof by contradiction that mid < hi: if mid==hi, then lo==hi and loop would have been terminated.
+            while (lo < hi)
+            {
+                int mid = (lo + hi) / 2;
+                if (nums[mid] > nums[hi]) lo = mid + 1;
+                else hi = mid;
+            }
+
+            Console.WriteLine(nums[lo]);
+            return 0;
+        }
+
+        
 
         public bool ValidTree(int n, int[][] edges)
         {

@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace AlgoPractice.Tree
+﻿namespace AlgoPractice.Tree
 {
+    
     public class SearchBSTForTarget
     {
         public bool FindTarget(TreeNode root, int k)
@@ -34,6 +31,13 @@ namespace AlgoPractice.Tree
             {
                 return Find(root.right, k);
             }
+        }
+
+        public class TreeNode
+        {
+            public int val { get; set; }
+            public TreeNode left { get; set; }
+            public TreeNode right { get; set; }
         }
     }
 }

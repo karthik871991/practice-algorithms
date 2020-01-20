@@ -9,7 +9,7 @@ using System.Text;
 namespace Tests
 {
     [TestClass]
-    public class RightSideViewBinaryTreeTests
+    public class RightSideViewBinaryTreeTests : RightSideViewBinaryTree
     {
         [TestMethod]
         public void TestMethod1()
