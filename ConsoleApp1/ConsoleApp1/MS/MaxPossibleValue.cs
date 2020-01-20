@@ -7,11 +7,7 @@ namespace AlgoPractice.MS
     public class MaxPossibleValue
     {
         public int MaxValue(int N)
-        {
-            var map = new SortedDictionary<int, int>();
-            var list = new List<string>();
-            var arr = new int[5];
-            
+        {            
             var sb = new StringBuilder(Math.Abs(N).ToString());
 
             var isPositive = N >= 0 ? true : false;
