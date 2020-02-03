@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using AlgoPractice;
+using Newtonsoft.Json;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -12,7 +13,16 @@ namespace Practice
     {
         public static void Main(string[] aargs)
         {
-
+            int[,] input = new int[5, 5]
+        {
+            { 0,0,0,0,0 },
+            { 0,0,0,0,0 },
+            { 0,0,0,0,2 },
+            { 0,0,0,0,0 },
+            { 0,0,0,0,3 }
+        };
+            var sut = new Futoshiki();
+            sut.SolvePuzzle(input);
         }
         public int MaxLength(List<string> list)
         {
