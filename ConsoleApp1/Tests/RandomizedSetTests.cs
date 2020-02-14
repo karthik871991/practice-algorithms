@@ -16,7 +16,7 @@ namespace Tests
         public void TestMethod1()
         {
             var sut = new RandomizedSet();
-
+            var ch = new char();
             sut.Insert(1);
             sut.Remove(2);
             sut.Insert(2);
