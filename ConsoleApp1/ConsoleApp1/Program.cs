@@ -11,23 +11,23 @@ namespace ConsoleApp1
             public int A { get; set; }
             public int B { get; set; }
         }
-        static void Main(string[] args)
-        {
-            var nums = new int[] { 6, 7, 0, 1, 2, 3, 4 };
-            var people = new int[6][] 
-            { new int[]{7, 0 }, 
-            new int[]{4, 4 }, 
-            new int[]{7, 1}, 
-            new int[]{5, 0}, 
-            new int[]{6, 1},
-            new int[]{5, 2}};
+        //static void Main(string[] args)
+        //{
+        //    var nums = new int[] { 6, 7, 0, 1, 2, 3, 4 };
+        //    var people = new int[6][] 
+        //    { new int[]{7, 0 }, 
+        //    new int[]{4, 4 }, 
+        //    new int[]{7, 1}, 
+        //    new int[]{5, 0}, 
+        //    new int[]{6, 1},
+        //    new int[]{5, 2}};
 
-            var result = ReconstructQueue(people);
+        //    var result = ReconstructQueue(people);
 
-            //Search(nums, 0);
+        //    //Search(nums, 0);
 
-            Console.ReadKey();
-        }
+        //    Console.ReadKey();
+        //}
         public static int[][] ReconstructQueue(int[][] people)
         {
             var list = new LinkedList<string>();
