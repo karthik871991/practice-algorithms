@@ -44,5 +44,28 @@ namespace Tests
             var list = new CircularViewBinaryTree().BoundaryOfBinaryTree(node).ToList();
             CollectionAssert.AreEqual(list, new List<int> { 1, 2, 4, 5, 6, 7, 3 });
         }
+
+        [TestMethod]
+        public void TestMethod2()
+        {
+            var node = new TreeNode
+            {
+                val = 1,
+                right = new TreeNode
+                {
+                    val = 2,
+                    left = new TreeNode
+                    {
+                        val = 3
+                    },
+                    right = new TreeNode
+                    {
+                        val = 4
+                    }
+                }
+            };
+            var list = new CircularViewBinaryTree().BoundaryOfBinaryTree(node).ToList();
+            CollectionAssert.AreEqual(list, new List<int> { 1, 3, 4, 2 });
+        }
     }
 }
