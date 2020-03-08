@@ -50,22 +50,22 @@ namespace AlgoPractice
         }
 
 
-        public static void Main(string[] args)
-        {
-            var sut = new SmallestSubStringWithAllCharacters();
-            var str = sut.FindSmallestSubString("xyz", "xyyzzyx");
+        //public static void Main(string[] args)
+        //{
+        //    var sut = new SmallestSubStringWithAllCharacters();
+        //    var str = sut.FindSmallestSubString("xyz", "xyyzzyx");
 
-            Console.WriteLine(str);
+        //    Console.WriteLine(str);
 
-            str = sut.FindSmallestSubString("abcde", "abcdee");
-            Console.WriteLine(str);
+        //    str = sut.FindSmallestSubString("abcde", "abcdee");
+        //    Console.WriteLine(str);
 
-            str = sut.FindSmallestSubString("abcd", "aabbccdd");
-            Console.WriteLine(str);
+        //    str = sut.FindSmallestSubString("abcd", "aabbccdd");
+        //    Console.WriteLine(str);
 
-            str = sut.FindSmallestSubString("a", "a");
-            Console.WriteLine(str);
-            Console.ReadLine();
-        }
+        //    str = sut.FindSmallestSubString("a", "a");
+        //    Console.WriteLine(str);
+        //    Console.ReadLine();
+        //}
     }
 }
