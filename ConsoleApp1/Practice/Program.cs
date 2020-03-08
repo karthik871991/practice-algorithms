@@ -24,6 +24,40 @@ namespace Practice
             var sut = new Futoshiki();
             sut.SolvePuzzle(input);
         }
+
+        public int MinSetSize(int[] arr)
+        {
+
+            var map = new Dictionary<int, int>();
+
+            for (int i = 0; i < arr.Length; i++)
+            {
+                if (map.ContainsKey(arr[i]))
+                {
+                    map[arr[i]]++;
+                }
+                else
+                {
+                    map.Add(arr[i], 1);
+                }
+            }
+
+            var list = map.OrderByDescending(x => x.Value).Select(x => x.Value).ToList();//.OrderByDescending<int>().ToList();
+
+            var s = arr.Length / 2;
+            var count = 0;
+            var sum = 0;
+            for (int i = 0; i < list.Count; i++)
+            {
+                sum += list[i];
+                count++;
+                if (sum > s)
+                    return count;
+            }
+
+            return count;
+        }
+
         public int MaxLength(List<string> list)
         {
             var maxLength = 0;

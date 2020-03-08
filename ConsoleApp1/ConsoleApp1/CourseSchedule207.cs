@@ -10,7 +10,7 @@ namespace AlgoPractice
             if (prerequisites.Length == 0)
                 return false;
 
-            var graph = new Dictionary<int, HashSet<int>>();
+            var graph = new Dictionary<int, List<int>>();
 
             for (int i = 0; i < prerequisites.Length; i++)
             {
@@ -20,32 +20,54 @@ namespace AlgoPractice
                 }
                 else
                 {
-                    graph.Add(prerequisites[i][0], new HashSet<int> { prerequisites[i][1] });
+                    graph.Add(prerequisites[i][0], new List<int> { prerequisites[i][1] });
                 }
             }
 
-            var q = new Queue<int>();
+            var visitingSet = new HashSet<int>();
+            var visitedSet = new HashSet<int>();
 
-            q.Enqueue(graph.First().Key);
-            var v = new HashSet<int>();
-
-            while (q.Count != 0)
+            foreach (var kvp in graph)
             {
-                var node = q.Dequeue();
+                if (!visitedSet.Contains(kvp.Key))
+                {
+                    var found = IsLoopFound(visitingSet, visitedSet, graph, kvp.Key);
 
-                if (v.Contains(node))
-                    return false;
-                else
-                    v.Add(node);
-
-                if (graph.ContainsKey(node))
-                    foreach (var n in graph[node])
-                    {
-                        q.Enqueue(n);
-                    }
+                    if (found)
+                        return false;
+                }
             }
 
             return true;
+        }
+
+        private bool IsLoopFound(HashSet<int> visitingSet, HashSet<int> visitedSet, Dictionary<int, List<int>> graph, int course)
+        {
+            if (visitingSet.Contains(course))
+            {
+                return true;
+            }
+
+            visitingSet.Add(course);
+
+            var list = graph.GetValueOrDefault(course);
+            if (list != null)
+            {
+                foreach (var item in list)
+                {
+                    if (!visitedSet.Contains(item))
+                    {
+                        var found = IsLoopFound(visitingSet, visitedSet, graph, item);
+
+                        if (found)
+                            return true;
+                    }
+
+                    visitedSet.Add(item);
+                }
+            }
+
+            return false;
         }
     }
 }
