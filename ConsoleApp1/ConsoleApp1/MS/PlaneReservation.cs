@@ -6,23 +6,23 @@ namespace AlgoPractice.MS
 {
     public class PlaneReservation
     {
-        public static void Main(string[] args)
-        {
-            //var result = solution(2, "1A 2F 1C");
+        //public static void Main(string[] args)
+        //{
+        //    //var result = solution(2, "1A 2F 1C");
 
-            //var re = new PlaneReservation().solution(new int[] { 7 });
-            //re = new PlaneReservation().solution(new int[] { 4, 3 });
-            //re = new PlaneReservation().solution(new int[] { 11, 1, 8, 12, 14 });
-            //re = new PlaneReservation().solution(new int[] { 4, 10, 8, 5, 9 });
-            //re = new PlaneReservation().solution(new int[] { 5, 5, 5, 5, 5 });
-            //re = new PlaneReservation().solution(new int[] { 1, 2, 3, 3 });
+        //    //var re = new PlaneReservation().solution(new int[] { 7 });
+        //    //re = new PlaneReservation().solution(new int[] { 4, 3 });
+        //    //re = new PlaneReservation().solution(new int[] { 11, 1, 8, 12, 14 });
+        //    //re = new PlaneReservation().solution(new int[] { 4, 10, 8, 5, 9 });
+        //    //re = new PlaneReservation().solution(new int[] { 5, 5, 5, 5, 5 });
+        //    //re = new PlaneReservation().solution(new int[] { 1, 2, 3, 3 });
 
-            var res = new PlaneReservation().solution(2, 4);
-            res = new PlaneReservation().solution(3, 20);
-            res = new PlaneReservation().solution(5, 6);
-            res = new PlaneReservation().solution(2, 1);
-            res = new PlaneReservation().solution(5, 3);
-        }
+        //    var res = new PlaneReservation().solution(2, 4);
+        //    res = new PlaneReservation().solution(3, 20);
+        //    res = new PlaneReservation().solution(5, 6);
+        //    res = new PlaneReservation().solution(2, 1);
+        //    res = new PlaneReservation().solution(5, 3);
+        //}
 
         public String[] solution(int N, int K)
         {
